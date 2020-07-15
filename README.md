@@ -1,1 +1,1 @@
-# Extensions.SqlServer
+# SubSonic.Core.Extensions.SqlServer
