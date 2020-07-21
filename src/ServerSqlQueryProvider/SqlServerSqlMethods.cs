@@ -10,6 +10,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace SubSonic.Extensions.SqlServer
 {
+    using src;
     using SqlGenerator;
     using SubSonic.Data.Linq;
     using System.Diagnostics.CodeAnalysis;

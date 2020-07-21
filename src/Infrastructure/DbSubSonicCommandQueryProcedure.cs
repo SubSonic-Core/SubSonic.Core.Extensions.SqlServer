@@ -5,7 +5,6 @@ using System.Linq;
 namespace SubSonic
 {
     using Extensions.SqlServer;
-    using Linq;
 
     public class DbSubSonicCommandQueryProcedure<TEntity>
         : DbSubSonicStoredProcedure
@@ -13,16 +12,15 @@ namespace SubSonic
     {
         public DbSubSonicCommandQueryProcedure(IEnumerable<IEntityProxy> entities)
         {
+            IList<IEntityProxy> proxies = new List<IEntityProxy>();
             Entities = entities.Select(x =>
             {
-                if (x is IEntityProxy<TEntity> property)
+                if (x is IEntityProxy<TEntity> proxy)
                 {
-                    return property.Data;
+                    return proxy.Data;
                 }
-                return null;
-            })
-                .Where(x => x.IsNotNull())
-                .ToArray();
+                throw SubSonic.Error.InvalidOperation();
+            });
         }
 
         [DbSqlParameter(nameof(Entities), Direction = ParameterDirection.Input, SqlDbType = SqlDbType.Structured)]
